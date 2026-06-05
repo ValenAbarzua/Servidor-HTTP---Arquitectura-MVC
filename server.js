@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
-import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import mongooseConfig from './src/config/mongoConfig.js';
 
 const app = express();
