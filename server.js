@@ -3,15 +3,18 @@ import cors from 'cors';
 import http from 'http';
 import dotenv from 'dotenv';
 import connectDB from './src/config/mongoConfig.js';
+import usuarioRoutes from './src/routes/usuarioRoutes.js';
+import tareasRoutes from './src/routes/tareasRoutes.js';
 
 dotenv.config();
-connectDB();
+await connectDB();
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/api', usuarioRoutes);
+app.use('/api', tareasRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
