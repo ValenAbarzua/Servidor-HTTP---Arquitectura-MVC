@@ -1,6 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 
-export const authMiddleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
         return res.status(401).json({ error: 'Acceso no autorizado, debes obtener un Token' });
@@ -19,3 +19,5 @@ export const authMiddleware = (req, res, next) => {
         return res.status(401).json({ error: 'Token no válido, debes iniciar sesion nuevamente' });
     }
 };
+
+export default authMiddleware;
