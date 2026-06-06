@@ -1,12 +1,13 @@
 import express from "express";
 import { obtenerTareas, crearTarea, actualizarTarea, eliminarTarea } from "../controllers/tareasController.js";
+import {  authMiddleware } from "../middleware/authMiddleware.js";
 
 
 const router = express.Router();
 
-router.get("/tareas", obtenerTareas);
-router.post("/tareas", crearTarea);
-router.patch("/tareas/:id", actualizarTarea);
-router.delete("/tareas/:id", eliminarTarea);
+router.get("/tareas", authMiddleware, obtenerTareas);
+router.post("/tareas", authMiddleware, crearTarea);
+router.patch("/tareas/:id", authMiddleware, actualizarTarea);
+router.delete("/tareas/:id", authMiddleware, eliminarTarea);
 
 export default router;

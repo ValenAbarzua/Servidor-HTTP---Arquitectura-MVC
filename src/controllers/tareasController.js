@@ -11,7 +11,7 @@ export const obtenerTareas = async (req, res) => {
 
 export const crearTarea = async (req, res) => {
     try {
-        const { titulo, descripcion, estado, usuario } = req.body;
+        const { titulo, descripcion, estado, usuario } = req.body; 
         const nuevaTarea = new Tareas({ titulo, descripcion, estado, usuario });
         await nuevaTarea.save();
         res.status(201).json(nuevaTarea);
