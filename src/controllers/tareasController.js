@@ -27,7 +27,7 @@ export const actualizarTarea = async (req, res) => {
     try {
        const { id } = req.params;
        const { titulo, descripcion, estado } = req.body;
-       const tareaActualizada = await Tareas.findByIdAndUpdate(
+       const tareaActualizada = await Tareas.findOneAndUpdate(
         { _id: id, usuario: req.user.id},
         { titulo, descripcion, estado },
         { new: true }
@@ -37,7 +37,7 @@ export const actualizarTarea = async (req, res) => {
         }
        res.status(200).json(tareaActualizada);
     } catch (error) {
-        res.status(500).json({ error: "Error al actualizar la tarea" });
+        res.status(500).json({ error: error.message });
     }
 };
 

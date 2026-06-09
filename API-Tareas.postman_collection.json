@@ -1,0 +1,207 @@
+{
+  "info": {
+    "_postman_id": "3466fd81-5ea2-4bfe-b7e4-0a8dd3e09d0a",
+    "name": "API Tareas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24324137"
+  },
+  "item": [
+    {
+      "name": "POST auth/register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Valentina\",\r\n    \"apellido\": \"Abarzua\",\r\n    \"email\": \"valentina@gmail.com\",\r\n    \"password\": \"valen1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST auth/login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"valentina@gmail.com\",\r\n    \"password\": \"valen1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/tareas",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjg2ZDYxOGRmMTQ5NjQ0ZGRkNzhjOSIsImlhdCI6MTc4MTAzNDM0NiwiZXhwIjoxNzgxMDM3OTQ2fQ.QozzqEdnivdtYvupR8-ro-Z7XIZlOOqGGweiM7UpcNk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"titulo\": \"Ir al supermercado\",\r\n    \"descripcion\": \"Comprar fideos y leche\",\r\n    \"estado\": \"Pendiente\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/tareas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/tareas",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjg2ZDYxOGRmMTQ5NjQ0ZGRkNzhjOSIsImlhdCI6MTc4MTAzNDM0NiwiZXhwIjoxNzgxMDM3OTQ2fQ.QozzqEdnivdtYvupR8-ro-Z7XIZlOOqGGweiM7UpcNk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"titulo\": \"Ir al supermercado\",\r\n    \"descripcion\": \"Comprar fideos y leche\",\r\n    \"estado\": \"Pendiente\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/tareas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH /api/tareas/:id",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjg2ZDYxOGRmMTQ5NjQ0ZGRkNzhjOSIsImlhdCI6MTc4MTAzNzAyNSwiZXhwIjoxNzgxMDQwNjI1fQ.C1FzigpkP1GRLVxhX5CiFfsuPjfx_O7QGhhsWrv12I8",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"estado\": \"Completada\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/tareas/6a286dae8df149644ddd78ca",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "tareas",
+            "6a286dae8df149644ddd78ca"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /api/tareas/:id",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjg2ZDYxOGRmMTQ5NjQ0ZGRkNzhjOSIsImlhdCI6MTc4MTAzNzAyNSwiZXhwIjoxNzgxMDQwNjI1fQ.C1FzigpkP1GRLVxhX5CiFfsuPjfx_O7QGhhsWrv12I8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/tareas/6a286dae8df149644ddd78ca",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "tareas",
+            "6a286dae8df149644ddd78ca"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

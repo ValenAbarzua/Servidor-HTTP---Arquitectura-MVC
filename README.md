@@ -192,6 +192,17 @@ Elimina una tarea perteneciente al usuario autenticado.
 * Cada tarea se encuentra asociada al usuario autenticado mediante su identificador (ObjectId).
 * Las operaciones de consulta, actualizacion y eliminacion de tareas verifican la pertenencia de la tarea al usuario autenticado.
 
+---
+
+# Pruebas de la API
+Se incluye una coleccion de Postman con ejemplos de:
+* Registro de usuarios
+* Inicio de sesion
+* Obtener tareas 
+* Crear tareas 
+* Actualizar tareas 
+* Eliminar tareas
+
 ## Autor
 
 Valentina Abarzua
