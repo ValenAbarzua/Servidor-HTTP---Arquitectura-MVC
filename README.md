@@ -179,6 +179,7 @@ Elimina una tarea perteneciente al usuario autenticado.
 
 ## Seguridad
 
+* Limitacion de intentos de login mediante RateLimit. 
 * Las contraseñas se almacenan utilizando bcrypt.
 * La autenticacion se realiza mediante JWT.
 * Las rutas de tareas estan protegidas mediante middleware.

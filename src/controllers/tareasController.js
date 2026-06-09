@@ -8,9 +8,7 @@ export const obtenerTareas = async (req, res) => {
 
         res.status(200).json(tareas);
     } catch (error) {
-        res.status(500).json({
-            error: "Error al obtener las tareas"
-        });
+        res.status(500).json({ error: "Error al obtener las tareas" });
     }
 };
 
@@ -24,10 +22,6 @@ export const crearTarea = async (req, res) => {
         res.status(500).json({ error: "Error al crear la tarea" });
     }
 }; 
-//"titulo": "Gimnasio",
- //   "descripcion": "Ir a entrenar el vierns",
-   // "estado": "En progreso",
-    // "usuario": "6a243550f8f55298c722e85f"
 
 export const actualizarTarea = async (req, res) => {
     try {

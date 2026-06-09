@@ -19,5 +19,14 @@
   "bugs": {
     "url": "https://github.com/ValenAbarzua/Servidor-HTTP---Arquitectura-MVC/issues"
   },
-  "homepage": "https://github.com/ValenAbarzua/Servidor-HTTP---Arquitectura-MVC#readme"
+  "homepage": "https://github.com/ValenAbarzua/Servidor-HTTP---Arquitectura-MVC#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.3"
+  }
 }
