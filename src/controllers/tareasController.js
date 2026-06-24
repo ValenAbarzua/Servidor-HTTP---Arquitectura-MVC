@@ -30,6 +30,7 @@ export const crearTarea = async (req, res) => {
         res.status(201).json(nuevaTarea);
     } catch (error) {
         res.status(500).json({ error: "Error al crear la tarea" });
+        console.log(error);
     }
 }; 
 
@@ -61,5 +62,19 @@ export const eliminarTarea = async (req, res) => {
         res.status(200).json({ message: "Tarea eliminada correctamente" });
     } catch (error) {
         res.status(500).json({ error: "Error al eliminar la tarea" });
+    }
+};
+
+export const eliminarCualquierTarea = async (req, res) => {
+    try {
+        const { id }= req.params;
+        const tareaEliminada = await Tareas.findOneAndDelete({_id: id});
+        if (!tareaEliminada) {
+            return res.status(404).json({error: "Tarea no encontrada! "});
+
+        }
+        res.status(200).json({ message: "Tarea eliminada correctamente! "});
+    } catch (error) {
+        res.status(500).json({ error: "Error al eliminar la tarea"})
     }
 };
