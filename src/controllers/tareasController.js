@@ -12,6 +12,16 @@ export const obtenerTareas = async (req, res) => {
     }
 };
 
+export const obtenerTodasLasTareas = async (req, res) => {
+    try{
+        const tareas = await Tareas.find();
+        res.status(200).json(tareas);
+
+    }catch (error) {
+        res.status(500).json({ error: "Error al obtener las tareas"})
+    }
+};
+
 export const crearTarea = async (req, res) => {
     try {
         const { titulo, descripcion, estado} = req.body; 
