@@ -4,4 +4,5 @@ export const tareaSchema = z.object ({
     descripcion: z.string().min(3, "La descripcion debe tener al menos tres caracteres"),
     estado: z.enum(["En progreso", "Completada", "Pendiente"])
    
- })
+});
+

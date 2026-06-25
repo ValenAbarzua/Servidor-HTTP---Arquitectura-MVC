@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/tareas", authMiddleware, obtenerTareas);
 router.get("/tareas/all", authMiddleware, rolesMiddleware("admin"), obtenerTodasLasTareas)
 router.post("/tareas", authMiddleware, validarTarea, crearTarea);
-router.patch("/tareas/:id", authMiddleware, actualizarTarea);
+router.patch("/tareas/:id", authMiddleware, validarTarea, actualizarTarea);
 router.delete("/tareas/:id", authMiddleware, eliminarTarea);
 router.delete("/tareas/admin/:id", authMiddleware, rolesMiddleware("admin"), eliminarCualquierTarea);
 
