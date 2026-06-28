@@ -2,11 +2,23 @@ import Tareas from "../models/Tareas.js";
 
 export const obtenerTareas = async (req, res) => {
     try {
+        const { page=1, limit=5, sort='asc' } = req.query;
+        const pageNum = parseInt(page, 10) || 1;
+        const limitNum = parseInt(limit, 10) || 5;
+        const skip = (pageNum - 1) * limitNum;
+        const direccionOrden = sort === 'asc' ? 1:-1;
+        const totalTareas = await Tareas.countDocuments({ usuario: req.user.id});
         const tareas = await Tareas.find({
             usuario: req.user.id
+        })
+        .sort({ fechaCreacion: direccionOrden })
+        .skip(skip)
+        .limit(limitNum)
+        res.status(200).json({
+            tareas,
+            paginasTotales: Math.ceil(totalTareas/limitNum),
+            paginaActual: pageNum
         });
-
-        res.status(200).json(tareas);
     } catch (error) {
         res.status(500).json({ error: "Error al obtener las tareas" });
     }
