@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import http from 'http';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 import connectDB from './src/config/mongoConfig.js';
 import usuarioRoutes from './src/routes/usuarioRoutes.js';
 import tareasRoutes from './src/routes/tareasRoutes.js';
@@ -13,6 +14,7 @@ await connectDB();
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
