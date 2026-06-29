@@ -16,6 +16,8 @@ La aplicacion permite tanto el registo como el login de usuarios mediante autent
 * bcrypt
 * dotenv
 * cors
+* express-rate-limit
+* Zod 
 
 ## Arquitectura del proyecto
 
@@ -30,6 +32,8 @@ src/
 ├── models/
 
 ├── routes/
+
+├── schemas/
 
 └── .env.example
 
@@ -119,6 +123,24 @@ Respuesta:
 
 ---
 
+### Roles 
+
+Cada usuario posee un rol:
+* ADMIN
+* USER (por defecto)
+
+# PERMISOS: 
+
+* USER: 
+Crear tareas
+Ver únicamente sus tareas
+Editar únicamente sus tareas
+Eliminar únicamente sus tareas
+
+* ADMIN:
+Ver todas las tareas del sistema
+Eliminar cualquier tarea
+
 ### Tareas (Rutas protegidas)
 
 Para acceder a estas rutas es necesario enviar:
@@ -129,7 +151,7 @@ Authorization: Bearer TOKEN
 
 ---
 
-#### Obtener tareas
+#### Obtener tareas (USER)
 
 GET /api/tareas
 
@@ -137,7 +159,15 @@ Obtiene unicamente las tareas pertenecientes al usuario autenticado.
 
 ---
 
-#### Crear tarea
+#### Obtener todas las tareas (ADMIN)
+
+GET /api/tareas/all
+
+El administrador obtiene todas las tareas de todos los usuarios registrados
+
+---
+
+#### Crear tarea (USER)
 
 POST /api/tareas
 
@@ -153,7 +183,7 @@ Body:
 
 ---
 
-#### Actualizar tarea
+#### Actualizar tarea (USER)
 
 PATCH /api/tareas/:id
 
@@ -169,11 +199,67 @@ Body:
 
 ---
 
-#### Eliminar tarea
+#### Eliminar tarea (USER)
 
 DELETE /api/tareas/:id
 
 Elimina una tarea perteneciente al usuario autenticado.
+
+---
+
+### Eliminar tarea (ADMIN)
+
+DELETE api/tareas/admin/:id
+
+Elimina una tarea con su ID de cualquier usuario registrado.
+
+---
+
+## Validaciones con ZOD 
+
+Se implemento validacion utilizando Zod para verificar los datos recibidos antes de llegar a los controladores.
+
+Actualmente se validan:
+
+* Registro de usuario
+* Inicio de sesion
+* Creacion de tareas
+* Actualizacion de tareas
+
+Los errores devueltos indican el campo correspondiente y un mensaje personalizado.
+
+## Query Params
+
+Los endpoints GET soportan consultas opcionales
+
+* Filtrado
+GET /api/tareas?filter=estado:Pendiente
+GET /api/tareas/all?filter=estado:Completada
+
+---
+
+* Ordenamiento
+
+Ascendente
+
+GET /api/tareas?sort=asc
+
+---
+Descendente
+
+GET /api/tareas?sort=desc
+
+---
+
+* Paginación
+
+GET /api/tareas?page=1&limit=5
+
+---
+
+También es posible combinar los parámetros:
+
+GET /api/tareas?page=2&limit=5&sort=desc&filter=estado:Pendiente
 
 ---
 
@@ -202,6 +288,30 @@ Se incluye una coleccion de Postman con ejemplos de:
 * Crear tareas 
 * Actualizar tareas 
 * Eliminar tareas
+
+## Usuario administrador para pruebas
+
+Para facilitar la correccion del proyecto se incluye un usuario administrador previamente creado.
+
+**Email**
+
+```text
+admin@test.com
+```
+
+**Contraseña**
+
+```text
+admin1234
+```
+
+Este usuario posee el rol **admin** y permite probar los siguientes endpoints protegidos:
+
+* `GET /api/tareas/all`
+* `DELETE /api/tareas/admin/:id`
+
+Todos los usuarios registrados mediante `/api/auth/register` se crean automáticamente con el rol **user**.
+
 
 ## Autor
 
