@@ -2,15 +2,21 @@ import Tareas from "../models/Tareas.js";
 
 export const obtenerTareas = async (req, res) => {
     try {
-        const { page=1, limit=5, sort='asc' } = req.query;
+        const { page=1, limit=5, sort='asc', filter } = req.query;
         const pageNum = parseInt(page, 10) || 1;
         const limitNum = parseInt(limit, 10) || 5;
         const skip = (pageNum - 1) * limitNum;
         const direccionOrden = sort === 'asc' ? 1:-1;
-        const totalTareas = await Tareas.countDocuments({ usuario: req.user.id});
-        const tareas = await Tareas.find({
-            usuario: req.user.id
-        })
+        const filtro = {usuario: req.user.id};
+        if (filter) {
+            const [campo, valor]= filter.split(":");
+            if (campo && valor){
+                filtro[campo]= valor;
+            }
+        
+        }
+        const totalTareas = await Tareas.countDocuments(filtro);
+        const tareas = await Tareas.find(filtro)
         .sort({ fechaCreacion: direccionOrden })
         .skip(skip)
         .limit(limitNum)
@@ -25,12 +31,44 @@ export const obtenerTareas = async (req, res) => {
 };
 
 export const obtenerTodasLasTareas = async (req, res) => {
-    try{
-        const tareas = await Tareas.find();
-        res.status(200).json(tareas);
+    try {
+        const { page = 1, limit = 5, sort = "asc", filter } = req.query;
 
-    }catch (error) {
-        res.status(500).json({ error: "Error al obtener las tareas"})
+        const pageNum = parseInt(page, 10) || 1;
+        const limitNum = parseInt(limit, 10) || 5;
+        const skip = (pageNum - 1) * limitNum;
+
+        const direccionOrden = sort === "asc" ? 1 : -1;
+
+        const filtro = {};
+
+        if (filter) {
+            const [campo, valor] = filter.split(":");
+
+            if (campo && valor) {
+                filtro[campo] = valor;
+            }
+        }
+
+        const totalTareas = await Tareas.countDocuments(filtro);
+
+        const tareas = await Tareas.find(filtro)
+            .populate("usuario", "nombre email rol")
+            .sort({ fechaCreacion: direccionOrden })
+            .skip(skip)
+            .limit(limitNum);
+
+        res.status(200).json({
+            tareas,
+            paginasTotales: Math.ceil(totalTareas / limitNum),
+            paginaActual: pageNum,
+            totalTareas
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            error: "Error al obtener las tareas"
+        });
     }
 };
 
