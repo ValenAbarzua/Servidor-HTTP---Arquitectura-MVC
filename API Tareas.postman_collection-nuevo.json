@@ -73,7 +73,29 @@
           "name": "POST ADMIN auth/login",
           "request": {
             "method": "POST",
-            "header": []
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"admin1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
           },
           "response": []
         }
@@ -226,6 +248,9 @@
       "item": [
         {
           "name": "GET ADMIN /api/tareas/all",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "GET",
             "header": [
@@ -234,7 +259,47 @@
                 "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDJhNjIwYTVhN2Y0ZDZlOWNmMzY1MCIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzgyNzU0NzY3LCJleHAiOjE3ODI3NTgzNjd9.4CmSCB_j5ysdTsOwAO7xRFjaRkQlExijvUUFUVkkPSE",
                 "type": "text"
               }
-            ]
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tareas/all?page=1&limit=3&sort=desc&filter=estado:Pendiente",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tareas",
+                "all"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "3"
+                },
+                {
+                  "key": "sort",
+                  "value": "desc"
+                },
+                {
+                  "key": "filter",
+                  "value": "estado:Pendiente"
+                }
+              ]
+            }
           },
           "response": []
         },
@@ -245,10 +310,24 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDJhNjIwYTVhN2Y0ZDZlOWNmMzY1MCIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzgyNzU0NzY3LCJleHAiOjE3ODI3NTgzNjd9.4CmSCB_j5ysdTsOwAO7xRFjaRkQlExijvUUFUVkkPSE",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhM2M0YjQ3ODAxYzlhMTE1NzQ5ZWM2NSIsInJvbCI6InVzZXIiLCJpYXQiOjE3ODIzMzg2NTMsImV4cCI6MTc4MjM0MjI1M30.b5OGHWwgJCJWP709ZHTW8rDxFzJLupv-zYxZxrF6LFI",
                 "type": "text"
               }
-            ]
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tareas/admin/6a3c4783e5bcb449100cb5d6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tareas",
+                "admin",
+                "6a3c4783e5bcb449100cb5d6"
+              ]
+            }
           },
           "response": []
         }
