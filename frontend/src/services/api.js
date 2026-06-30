@@ -24,9 +24,17 @@ export const register = async (nombre, apellido, email, password) => {
   return datos;
 };
 
-export const obtenerTareas = async (token) => {
+export const obtenerTareas = async (token, filtroEstado = "", orden="asc") => {
+    const params = new URLSearchParams();
+    params.append("sort", orden);
+    if (filtroEstado !== "") {
+        params.append(
+            "filter",
+            `estado:${filtroEstado}`
+        );
+    }
 
-    const respuesta = await fetch(`${API_URL}/tareas`, {
+    const respuesta = await fetch(`${API_URL}/tareas?${params.toString()}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

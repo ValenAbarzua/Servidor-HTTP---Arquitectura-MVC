@@ -5,6 +5,7 @@ import { obtenerTareas } from "../services/api";
 import NavBar from "../components/NavBar";
 import FormularioTarea from "../components/FormularioTarea";
 import ListaTareas from "../components/ListaTareas";
+import Filtro from "../components/Filtro";
 
 function Home() {
 
@@ -12,14 +13,16 @@ function Home() {
     const [tareas, setTareas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [tareaEditando, setTareaEditando] = useState(null);
+    const [filtroEstado, setFiltroEstado] = useState("");
+    const [orden, setOrden] = useState("asc");
 
     useEffect(() => {
         cargarTareas();
-    }, []);
+    }, [filtroEstado, orden]);
 
     async function cargarTareas() {
         try {
-            const datos = await obtenerTareas(token);
+            const datos = await obtenerTareas(token, filtroEstado, orden);
             setTareas(datos.tareas);
         } catch (error) {
             console.error(error);
@@ -43,7 +46,14 @@ function Home() {
                 />
             </div>
             
+            <Filtro
+                filtroEstado={filtroEstado}
+                setFiltroEstado={setFiltroEstado}
 
+                orden={orden}
+                setOrden={setOrden}
+            />
+            
             <div className="right-column">
                 <ListaTareas
                 tareas={tareas}

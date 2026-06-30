@@ -155,6 +155,16 @@ nav{
   box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
+.filtros{
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filtros select {
+  flex:1;
+}
+
 /* DISENO RESPONSIVE */
 @media (max-width: 900px) {
   #root {
