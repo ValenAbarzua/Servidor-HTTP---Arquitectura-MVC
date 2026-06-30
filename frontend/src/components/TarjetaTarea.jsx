@@ -1,13 +1,28 @@
-function TarjetaTarea({ tarea }) {
+import { useAuth } from "../context/AuthContext";
+import { eliminarTarea } from "../services/api";
+
+function TarjetaTarea({ tarea, cargarTareas }) {
+
+    const { token } = useAuth();
+    const handleEliminar = async () => {
+        const confirmar = window.confirm(
+            "¿Estás seguro de que deseas eliminar esta tarea?"
+        );
+        if (!confirmar) return;
+        try {
+            console.log(tarea);
+            await eliminarTarea(token, tarea._id);
+            cargarTareas();
+        } catch (error) {
+            console.error(error);
+            alert("Error al eliminar la tarea.");
+        }
+    };
 
     return (
-
         <div>
-
             <h3>{tarea.titulo}</h3>
-
             <p>{tarea.descripcion}</p>
-
             <p>
                 Estado: <strong>{tarea.estado}</strong>
             </p>
@@ -16,16 +31,13 @@ function TarjetaTarea({ tarea }) {
                 Editar
             </button>
 
-            <button>
+            <button onClick={handleEliminar}>
                 Eliminar
             </button>
 
-            <hr/>
-
+            <hr />
         </div>
-
     );
-
 }
 
 export default TarjetaTarea;

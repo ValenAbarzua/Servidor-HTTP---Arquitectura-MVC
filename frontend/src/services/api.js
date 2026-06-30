@@ -71,4 +71,24 @@ export const crearTarea = async (token, tarea) => {
 
 };
 
+export const eliminarTarea = async (token, id) => {
+
+    const respuesta = await fetch(`${API_URL}/tareas/${id}`, {
+
+        method: "DELETE",
+
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(datos.error || "Error al eliminar tarea");
+    }
+
+    return datos;
+};
 

@@ -9,9 +9,7 @@ import ListaTareas from "../components/ListaTareas";
 function Home() {
 
     const { token } = useAuth();
-
     const [tareas, setTareas] = useState([]);
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -19,15 +17,9 @@ function Home() {
     }, []);
 
     async function cargarTareas() {
-
         try {
-
             const datos = await obtenerTareas(token);
-            console.log("Datos: ", datos);
-            console.log("Tareas: ", datos.tareas)
-
             setTareas(datos.tareas);
-
         } catch (error) {
             console.error(error);
         } finally {
@@ -50,6 +42,7 @@ function Home() {
 
             <ListaTareas
                 tareas={tareas}
+                cargarTareas={cargarTareas}
             />
         </>
     );
