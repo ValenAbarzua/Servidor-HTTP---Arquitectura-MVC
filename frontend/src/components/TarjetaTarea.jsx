@@ -1,5 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import { eliminarTarea } from "../services/api";
+import { FaEdit, FaTrash, FaClock, FaCheckCircle } from "react-icons/fa";
 
 function TarjetaTarea({ tarea, cargarTareas, setTareaEditando }) {
 
@@ -19,21 +20,32 @@ function TarjetaTarea({ tarea, cargarTareas, setTareaEditando }) {
     };
 
     return (
-        <div>
+        <div className="card">
             <h3>{tarea.titulo}</h3>
             <p>{tarea.descripcion}</p>
             <p>
-                Estado: <strong>{tarea.estado}</strong>
+
+            {
+            tarea.estado === "Pendiente" && (
+            <>🟡 Pendiente</>)
+            }
+            {tarea.estado === "En progreso" && (
+            <>🔵 En progreso </>)
+            }
+            {tarea.estado === "Completada" && (
+            <>🟢 Completada</>)
+            }
             </p>
-
-            <button onClick={() => setTareaEditando(tarea)}>
+            
+            <div className="card-buttons">
+                <FaEdit onClick={() => setTareaEditando(tarea)}>
                 Editar
-            </button>
+                </FaEdit>
 
-            <button onClick={handleEliminar}>
-                Eliminar
-            </button>
-
+                <FaTrash onClick={handleEliminar}>
+                    Eliminar
+                </FaTrash>
+            </div>
             <hr />
         </div>
     );

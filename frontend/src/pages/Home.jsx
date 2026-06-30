@@ -33,23 +33,28 @@ function Home() {
     }
 
     return (
-        <>
-            <NavBar />
-
-            <FormularioTarea
+        <div className="container">
+            <div className="left-column">
+                <FormularioTarea
                 token={token}
                 cargarTareas={cargarTareas}
                 tareaEditando={tareaEditando}
                 setTareaEditando={setTareaEditando}
-            />
+                />
+            </div>
+            
 
-            <ListaTareas
+            <div className="right-column">
+                <ListaTareas
                 tareas={tareas}
                 cargarTareas={cargarTareas}
                 tareaEditando={tareaEditando}
                 setTareaEditando={setTareaEditando}
-            />
-        </>
+                />
+            </div>
+
+            <NavBar />
+        </div>
     );
 }
 
