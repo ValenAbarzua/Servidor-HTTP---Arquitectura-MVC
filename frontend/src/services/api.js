@@ -126,3 +126,49 @@ export const editarTarea = async (token, id, tarea) => {
 
 };
 
+export const obtenerTodasLasTareas = async (
+    token,
+    filtroEstado = "",
+    orden = "asc",
+    pagina = 1
+    ) => {
+
+    const params = new URLSearchParams();
+    params.append("page", pagina);
+    params.append("sort", orden);
+
+    if (filtroEstado !== "") {
+        params.append(
+            "filter",
+            `estado:${filtroEstado}`
+        );
+    }
+    const respuesta = await fetch(
+        `${API_URL}/tareas/all?${params.toString()}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+    if (!respuesta.ok) {
+        throw new Error("Error al obtener todas las tareas");
+    }
+    return await respuesta.json();
+};
+
+export const eliminarCualquierTarea = async (id, token)=>{
+    const respuesta = await fetch(
+        `${API_URL}/tareas/admin/${id}`,
+        {
+            method:"DELETE",
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        }
+    );
+    if(!respuesta.ok){
+        throw new Error("No se pudo eliminar");
+    }
+}

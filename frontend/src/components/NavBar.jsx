@@ -21,17 +21,53 @@ function NavBar() {
 
     return (
 
-        <nav>
+        <nav className="navbar">
 
-            <h2>Agenda de tareas personales</h2>
+            <div className="navbar-left">
 
-            <p>
-                Hola {usuario?.nombre}!
-            </p>
+                <h2>📋 Task Manager</h2>
 
-            <button onClick={logout}>
-                Cerrar sesión
-            </button>
+                <p>
+                    Hola, <strong>{usuario?.nombre}</strong> 👋
+                </p>
+
+            </div>
+
+            <div className="navbar-right">
+
+                <span
+                    className={
+                        usuario?.rol === "admin"
+                            ? "badge-admin"
+                            : "badge-user"
+                    }
+                >
+                    {usuario?.rol === "admin"
+                        ? "👑 Administrador"
+                        : "👤 Cliente"}
+                </span>
+
+                {
+                    usuario?.rol === "admin" && (
+
+                        <button
+                            className="btn-admin"
+                            onClick={() => navigate("/admin")}
+                        >
+                            Panel Admin
+                        </button>
+
+                    )
+                }
+
+                <button
+                    className="btn-logout"
+                    onClick={logout}
+                >
+                    Cerrar sesión
+                </button>
+
+            </div>
 
         </nav>
 

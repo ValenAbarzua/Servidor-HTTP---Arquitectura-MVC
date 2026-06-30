@@ -44,26 +44,26 @@ function Home() {
     }
 
     return (
-        <div className="container">
-            <div className="left-column">
+    <>
+        <NavBar />
+        <div className="layout">
+            <aside className="sidebar">
                 <FormularioTarea
                 token={token}
                 cargarTareas={cargarTareas}
                 tareaEditando={tareaEditando}
                 setTareaEditando={setTareaEditando}
                 />
-            </div>
-            
-            <Filtro
+            </aside>
+            <main className="contenido">
+                <Filtro
                 filtroEstado={filtroEstado}
                 setFiltroEstado={setFiltroEstado}
 
                 orden={orden}
                 setOrden={setOrden}
             />
-
-            <div className="right-column">
-                <ListaTareas
+            <ListaTareas
                 tareas={tareas}
                 cargarTareas={cargarTareas}
                 tareaEditando={tareaEditando}
@@ -74,10 +74,11 @@ function Home() {
                 paginasTotales={paginasTotales}
                 setPaginaActual={setPaginaActual}
                 />
-            </div>
 
-            <NavBar />
+            </main>
+            
         </div>
+    </>
     );
 }
 
