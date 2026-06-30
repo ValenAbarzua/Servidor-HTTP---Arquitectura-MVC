@@ -2,7 +2,7 @@ import Tareas from "../models/Tareas.js";
 
 export const obtenerTareas = async (req, res) => {
     try {
-        const { page=1, limit=100, sort='asc', filter } = req.query; //DESPUES CAMBIAR
+        const { page=1, limit=5, sort='asc', filter } = req.query; //DESPUES CAMBIAR
         const pageNum = parseInt(page, 10) || 1;
         const limitNum = parseInt(limit, 10) || 5;
         const skip = (pageNum - 1) * limitNum;

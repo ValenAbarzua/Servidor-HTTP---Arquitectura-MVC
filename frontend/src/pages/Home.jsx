@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 import FormularioTarea from "../components/FormularioTarea";
 import ListaTareas from "../components/ListaTareas";
 import Filtro from "../components/Filtro";
+import Paginacion from "../components/Paginacion";
 
 function Home() {
 
@@ -15,15 +16,22 @@ function Home() {
     const [tareaEditando, setTareaEditando] = useState(null);
     const [filtroEstado, setFiltroEstado] = useState("");
     const [orden, setOrden] = useState("asc");
+    const [paginaActual, setPaginaActual] =useState(1);
+    const [paginasTotales, setPaginasTotales]= useState(1);
 
     useEffect(() => {
         cargarTareas();
+    }, [filtroEstado, orden, paginaActual]);
+
+    useEffect(() => {
+        setPaginaActual(1);
     }, [filtroEstado, orden]);
 
     async function cargarTareas() {
         try {
-            const datos = await obtenerTareas(token, filtroEstado, orden);
+            const datos = await obtenerTareas(token, filtroEstado, orden, paginaActual);
             setTareas(datos.tareas);
+            setPaginasTotales(datos.paginasTotales);
         } catch (error) {
             console.error(error);
         } finally {
@@ -53,13 +61,18 @@ function Home() {
                 orden={orden}
                 setOrden={setOrden}
             />
-            
+
             <div className="right-column">
                 <ListaTareas
                 tareas={tareas}
                 cargarTareas={cargarTareas}
                 tareaEditando={tareaEditando}
                 setTareaEditando={setTareaEditando}
+                />
+                <Paginacion 
+                paginaActual={paginaActual}
+                paginasTotales={paginasTotales}
+                setPaginaActual={setPaginaActual}
                 />
             </div>
 

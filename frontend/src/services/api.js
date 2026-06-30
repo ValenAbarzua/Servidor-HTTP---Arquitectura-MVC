@@ -24,9 +24,10 @@ export const register = async (nombre, apellido, email, password) => {
   return datos;
 };
 
-export const obtenerTareas = async (token, filtroEstado = "", orden="asc") => {
+export const obtenerTareas = async (token, filtroEstado = "", orden="asc", pagina=1) => {
     const params = new URLSearchParams();
     params.append("sort", orden);
+    params.append("page", pagina);
     if (filtroEstado !== "") {
         params.append(
             "filter",
