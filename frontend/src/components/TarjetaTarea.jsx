@@ -44,8 +44,17 @@ function TarjetaTarea({
         <div className="card">
 
             <h3>{tarea.titulo}</h3>
-
             <p>{tarea.descripcion}</p>
+            {esAdmin && tarea.usuario && (
+                <div className="info-usuario">
+                    <p> 👤 {tarea.usuario.nombre} {tarea.usuario.apellido}
+                    </p>
+                    <p> 
+                        📧 {tarea.usuario.email}
+                    </p>
+                </div>
+
+            )}
 
             <p>
 

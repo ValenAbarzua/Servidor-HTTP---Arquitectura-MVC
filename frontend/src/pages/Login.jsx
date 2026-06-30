@@ -35,7 +35,7 @@ function Login() {
     return (
         <div>
 
-            <h1>Task Manager</h1>
+            <h1>Tu agenda de tareas personales</h1>
 
             <form onSubmit={handleSubmit}>
 

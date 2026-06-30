@@ -40,6 +40,7 @@ function Admin() {
         <>
             <NavBar />
             <h1> Panel Administrador</h1>
+            <p> Gestiona las tareas de todos los usuarios </p>
 
             <Filtro
                 filtroEstado={filtroEstado}
@@ -51,6 +52,7 @@ function Admin() {
             <ListaTareas
                 tareas={tareas}
                 cargarTareas={cargarTareas}
+                esAdmin={true}
             />
 
             <Paginacion
@@ -58,12 +60,6 @@ function Admin() {
                 paginasTotales={paginasTotales}
                 setPaginaActual={setPaginaActual}
             />
-            <ListaTareas
-                tareas={tareas}
-                cargarTareas={cargarTareas}
-                esAdmin={true}
-            />
-
         </>
 
     );

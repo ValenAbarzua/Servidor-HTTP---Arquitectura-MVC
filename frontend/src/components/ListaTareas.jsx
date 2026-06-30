@@ -8,7 +8,12 @@ function ListaTareas({ tareas, cargarTareas, setTareaEditando, esAdmin = false }
 
     return (
         <div>
-            <h2>Mis tareas</h2>
+            <h2>
+                {esAdmin 
+                ? "Tareas de los usuarios"
+                : "Mis tareas"
+                }
+            </h2>
             {
                 tareas.map((tarea) => (
                     <TarjetaTarea

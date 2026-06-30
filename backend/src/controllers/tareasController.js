@@ -53,7 +53,7 @@ export const obtenerTodasLasTareas = async (req, res) => {
         const totalTareas = await Tareas.countDocuments(filtro);
 
         const tareas = await Tareas.find(filtro)
-            .populate("usuario", "nombre email rol")
+            .populate("usuario", "nombre apellido email rol")
             .sort({ fechaCreacion: direccionOrden })
             .skip(skip)
             .limit(limitNum);

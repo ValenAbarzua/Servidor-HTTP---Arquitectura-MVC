@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useLocation } from "react-router-dom"
 
 function NavBar() {
 
     const { usuario, setUsuario, setToken } = useAuth();
 
     const navigate = useNavigate();
+
+    const location = useLocation();
 
     const logout = () => {
 
@@ -25,10 +28,10 @@ function NavBar() {
 
             <div className="navbar-left">
 
-                <h2>📋 Task Manager</h2>
+                <h2>Tu agenda de tareas </h2>
 
                 <p>
-                    Hola, <strong>{usuario?.nombre}</strong> 👋
+                    Hola, <strong>{usuario?.nombre}</strong>!
                 </p>
 
             </div>
@@ -43,19 +46,25 @@ function NavBar() {
                     }
                 >
                     {usuario?.rol === "admin"
-                        ? "👑 Administrador"
-                        : "👤 Cliente"}
+                        ? "Administrador"
+                        : "Cliente"}
                 </span>
 
                 {
                     usuario?.rol === "admin" && (
-
-                        <button
+                        location.pathname === "/admin" ? (
+                            <button
                             className="btn-admin"
-                            onClick={() => navigate("/admin")}
-                        >
-                            Panel Admin
-                        </button>
+                            onClick={() => navigate("/home")}
+                            >
+                            Mis tareas
+                            </button>
+                        ) : (
+                            <button 
+                                className="btn-admin"
+                                onClick={() => navigate("/admin")}
+                            > Panel admin </button>
+                        )
 
                     )
                 }

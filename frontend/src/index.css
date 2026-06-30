@@ -236,6 +236,19 @@ nav{
 .paginacion span{
   font-weight:bold;
 }
+
+.info-usuario{
+  margin: 15px 0;
+  padding: 10px;
+  background: #f8fafc;
+  border-left:4px solid #2563eb;
+  border-radius: 8px;
+}
+
+.info-usuario p{
+  margin: 4px 0;
+  font-size: .9rem;
+}
 /* DISENO RESPONSIVE */
 @media (max-width: 900px) {
   #root {
