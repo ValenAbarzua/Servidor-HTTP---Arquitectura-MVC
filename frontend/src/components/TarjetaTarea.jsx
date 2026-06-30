@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { eliminarTarea } from "../services/api";
 
-function TarjetaTarea({ tarea, cargarTareas }) {
+function TarjetaTarea({ tarea, cargarTareas, setTareaEditando }) {
 
     const { token } = useAuth();
     const handleEliminar = async () => {
@@ -10,7 +10,6 @@ function TarjetaTarea({ tarea, cargarTareas }) {
         );
         if (!confirmar) return;
         try {
-            console.log(tarea);
             await eliminarTarea(token, tarea._id);
             cargarTareas();
         } catch (error) {
@@ -27,7 +26,7 @@ function TarjetaTarea({ tarea, cargarTareas }) {
                 Estado: <strong>{tarea.estado}</strong>
             </p>
 
-            <button>
+            <button onClick={() => setTareaEditando(tarea)}>
                 Editar
             </button>
 

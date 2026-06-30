@@ -11,6 +11,7 @@ function Home() {
     const { token } = useAuth();
     const [tareas, setTareas] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [tareaEditando, setTareaEditando] = useState(null);
 
     useEffect(() => {
         cargarTareas();
@@ -38,11 +39,15 @@ function Home() {
             <FormularioTarea
                 token={token}
                 cargarTareas={cargarTareas}
+                tareaEditando={tareaEditando}
+                setTareaEditando={setTareaEditando}
             />
 
             <ListaTareas
                 tareas={tareas}
                 cargarTareas={cargarTareas}
+                tareaEditando={tareaEditando}
+                setTareaEditando={setTareaEditando}
             />
         </>
     );

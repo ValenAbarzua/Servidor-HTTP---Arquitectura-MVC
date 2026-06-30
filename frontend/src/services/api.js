@@ -92,3 +92,28 @@ export const eliminarTarea = async (token, id) => {
     return datos;
 };
 
+export const editarTarea = async (token, id, tarea) => {
+
+    const respuesta = await fetch(`${API_URL}/tareas/${id}`, {
+
+        method: "PATCH",
+
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+
+        body: JSON.stringify(tarea)
+
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(datos.error || "Error al editar la tarea");
+    }
+
+    return datos;
+
+};
+

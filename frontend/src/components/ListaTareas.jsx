@@ -1,6 +1,6 @@
 import TarjetaTarea from "./TarjetaTarea";
 
-function ListaTareas({ tareas, cargarTareas }) {
+function ListaTareas({ tareas, cargarTareas, setTareaEditando }) {
 
     if (tareas.length === 0) {
         return <p>No tienes tareas!</p>;
@@ -15,6 +15,7 @@ function ListaTareas({ tareas, cargarTareas }) {
                         key={tarea._id}
                         tarea={tarea}
                         cargarTareas={cargarTareas}
+                        setTareaEditando={setTareaEditando}
                     />
                 ))
             }
