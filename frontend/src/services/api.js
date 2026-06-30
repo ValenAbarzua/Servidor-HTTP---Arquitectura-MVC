@@ -41,4 +41,34 @@ export const obtenerTareas = async (token) => {
     return datos;
 };
 
+export const crearTarea = async (token, tarea) => {
+
+    const respuesta = await fetch(`${API_URL}/tareas`, {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json",
+
+            Authorization: `Bearer ${token}`
+
+        },
+
+        body: JSON.stringify(tarea)
+
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+
+        throw new Error(datos.error || "Error al crear la tarea");
+
+    }
+
+    return datos;
+
+};
+
 

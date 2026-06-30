@@ -1,37 +1,60 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { obtenerTareas } from "../services/api";
+
+import NavBar from "../components/NavBar";
+import FormularioTarea from "../components/FormularioTarea";
+import ListaTareas from "../components/ListaTareas";
 
 function Home() {
 
-    const { usuario, setUsuario, setToken } = useAuth();
+    const { token } = useAuth();
 
-    const navigate = useNavigate();
+    const [tareas, setTareas] = useState([]);
 
-    const logout = () => {
+    const [loading, setLoading] = useState(true);
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("usuario");
+    useEffect(() => {
+        cargarTareas();
+    }, []);
 
-        setUsuario(null);
-        setToken(null);
+    async function cargarTareas() {
 
-        navigate("/");
-    };
+        try {
+
+            const datos = await obtenerTareas(token);
+
+            setTareas(datos.tareas);
+
+        } catch (error) {
+
+            console.error(error);
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+    if (loading) {
+        return <p>Cargando...</p>;
+    }
 
     return (
-        <div>
+        <>
+            <NavBar />
 
-            <h1>Task Manager</h1>
+            <FormularioTarea
+                token={token}
+                cargarTareas={cargarTareas}
+            />
 
-            <h2>
-                Hola {usuario?.nombre}!
-            </h2>
-
-            <button onClick={logout}>
-                Cerrar sesión
-            </button>
-
-        </div>
+            <ListaTareas
+                tareas={tareas}
+            />
+        </>
     );
 }
 
