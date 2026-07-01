@@ -12,7 +12,7 @@ import authMiddleware from './src/middlewares/authMiddleware.js';
 dotenv.config();
 await connectDB();
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
 app.use(cors());
