@@ -43,9 +43,9 @@ function Login() {
     };
 
     return (
-        <div>
-
-            <h1>Tu agenda de tareas personales</h1>
+        <div className="auth-container">
+            <div className="auth-card">
+                <h1>Tu agenda de tareas personales</h1>
 
             {
                 location.state?.mensaje && (
@@ -91,6 +91,8 @@ function Login() {
                 Crear una cuenta
                 </Link>
             </p>
+
+            </div>
 
         </div>
     );

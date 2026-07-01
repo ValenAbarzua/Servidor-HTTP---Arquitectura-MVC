@@ -47,9 +47,10 @@ function Register() {
         }
     };
     return (
-        <div>
-            <h1>Crear una cuenta</h1>
-            <form onSubmit={handleSubmit}>
+        <div className="auth-container">
+            <div className="auth-card">
+                <h1>Crear una cuenta</h1>
+                <form onSubmit={handleSubmit}>
 
                 <input
                     type="text"
@@ -106,10 +107,13 @@ function Register() {
 
             <p>
                 Ya tenes una cuenta?
+                
             <Link to="/">
                 Iniciar sesión
             </Link>
             </p>
+            </div>
+            
         </div>
 
     );
