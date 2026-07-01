@@ -25,3 +25,7 @@ app.use('/api', tareasRoutes);
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
+
+app.get("/", (req,res) =>{
+  res.json({mensaje: "API FUNCIONANDO CORRECTAMENTE!"})
+})
