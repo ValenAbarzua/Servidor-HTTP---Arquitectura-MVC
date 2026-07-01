@@ -12,7 +12,7 @@ function FormularioTarea({
     const [descripcion, setDescripcion] = useState("");
     const [estado, setEstado] = useState("Pendiente");
 
-    const [error, setError] = useState("");
+    const [errores, setErrores] = useState({});
 
     useEffect(() => {
 
@@ -28,7 +28,7 @@ function FormularioTarea({
 
     const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setErrores({});
     try {
         if (tareaEditando) {
             await editarTarea(
@@ -55,8 +55,16 @@ function FormularioTarea({
 
         cargarTareas();
     } catch (error) {
-        setError(error.message);
-    }
+        if (error.errores) {
+            const nuevosErrores = {};
+            error.errores.forEach((e) => {
+                nuevosErrores[e.campo] = e.mensaje;
+            });
+            setErrores(nuevosErrores);
+        } else{
+            alert(error.message);
+        }
+    } 
     };
     
     const cancelarEdicion = () => {
@@ -85,12 +93,22 @@ function FormularioTarea({
                     value={titulo}
                     onChange={(e) => setTitulo(e.target.value)}
                 />
+                {
+                    errores.titulo && (
+                        <p className="error">{errores.titulo}</p>
+                    )
+                }
 
                 <textarea
                     placeholder="Descripción"
                     value={descripcion}
                     onChange={(e) => setDescripcion(e.target.value)}
                 />
+                {
+                    errores.descripcion && (
+                        <p className="error">{errores.descripcion}</p>
+                    )
+                }
 
                 <select
                     value={estado}
@@ -110,6 +128,11 @@ function FormularioTarea({
                     </option>
 
                 </select>
+                {
+                    errores.estado && (
+                        <p className="error">{errores.estado}</p>
+                    )
+                }
 
                 <button type="submit">
 
@@ -137,17 +160,8 @@ function FormularioTarea({
                 }
 
             </form>
-
-            {
-                error && (
-                    <p>{error}</p>
-                )
-            }
-
         </div>
-
     );
-
 }
 
 export default FormularioTarea;

@@ -8,7 +8,11 @@ export const login = async (email, password) => {
   });
 
   const datos = await respuesta.json();
-  if (!respuesta.ok) throw new Error(datos.error || "Error al iniciar sesión");
+  if (!respuesta.ok){
+    const error = new Error(datos.error || "Error al iniciar sesion");
+    error.errores = datos.errores;
+    throw error;
+  }
   return datos;
 };
 
@@ -20,7 +24,11 @@ export const register = async (nombre, apellido, email, password) => {
   });
 
   const datos = await respuesta.json();
-  if (!respuesta.ok) throw new Error(datos.error || "Error al registrarse");
+  if (!respuesta.ok) {
+    const error = new Error(datos.error || "Error al registrarse");
+    error.errores = datos.errores;
+    throw error;
+  }
   return datos;
 };
 
@@ -51,33 +59,22 @@ export const obtenerTareas = async (token, filtroEstado = "", orden="asc", pagin
 };
 
 export const crearTarea = async (token, tarea) => {
-
     const respuesta = await fetch(`${API_URL}/tareas`, {
-
         method: "POST",
-
         headers: {
-
             "Content-Type": "application/json",
-
             Authorization: `Bearer ${token}`
-
         },
-
         body: JSON.stringify(tarea)
-
     });
 
     const datos = await respuesta.json();
-
     if (!respuesta.ok) {
-
-        throw new Error(datos.error || "Error al crear la tarea");
-
+        const error = new Error(datos.error || "Error al crear la tarea");
+        error.errores = datos.errores;
+        throw error;
     }
-
     return datos;
-
 };
 
 export const eliminarTarea = async (token, id) => {

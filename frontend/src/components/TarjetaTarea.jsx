@@ -57,19 +57,14 @@ function TarjetaTarea({
             )}
 
             <p>
-
                 {tarea.estado === "Pendiente" && <>🟡 Pendiente</>}
-
                 {tarea.estado === "En progreso" && <>🔵 En progreso</>}
-
                 {tarea.estado === "Completada" && <>🟢 Completada</>}
-
             </p>
 
             <div className="card-buttons">
 
                 {!esAdmin && (
-
                     <button
                         onClick={() => setTareaEditando(tarea)}
                     >
@@ -85,13 +80,9 @@ function TarjetaTarea({
                 </button>
 
             </div>
-
             <hr />
-
         </div>
-
     );
-
 }
 
 export default TarjetaTarea;

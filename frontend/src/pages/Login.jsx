@@ -1,20 +1,22 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { login } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [errores, setErrores] = useState({});
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const { setUsuario, setToken } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setErrores({});
         try {
 
             const datos = await login(email, password);
@@ -28,7 +30,15 @@ function Login() {
             navigate("/home");
 
         } catch (error) {
-            setError(error.message);
+            if (error.errores) {
+                const nuevosErrores = {};
+                error.errores.forEach((e) => {
+                    nuevosErrores[e.campo] = e.mensaje;
+                });
+            setErrores(nuevosErrores);
+            } else {
+            alert(error.message);
+            }
         }
     };
 
@@ -36,6 +46,14 @@ function Login() {
         <div>
 
             <h1>Tu agenda de tareas personales</h1>
+
+            {
+                location.state?.mensaje && (
+                    <div className="mensaje-exito">
+                    {location.state.mensaje}
+                    </div>
+                )
+            }
 
             <form onSubmit={handleSubmit}>
 
@@ -45,6 +63,10 @@ function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                {
+                    errores.email && 
+                    <p className="error">{errores.email}</p>
+                }
 
                 <input
                     type="password"
@@ -52,6 +74,10 @@ function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                {
+                    errores.password &&
+                    <p className="error">{errores.password}</p>
+                }
 
                 <button type="submit">
                     Iniciar sesión
@@ -59,11 +85,12 @@ function Login() {
 
             </form>
 
-            {error && <p>{error}</p>}
-
-            <Link to="/register">
+            <p>
+                No tenes una cuenta?
+                <Link to="/register">
                 Crear una cuenta
-            </Link>
+                </Link>
+            </p>
 
         </div>
     );
